@@ -1,0 +1,9 @@
+grailsw.bat
+.idea
+target
+wrapper
+.classpath
+.project
+FindItGrails.iml
+FindItGrails-grailsPlugins.iml
+grailsw
