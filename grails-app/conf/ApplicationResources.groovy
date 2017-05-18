@@ -20,9 +20,22 @@ modules = {
         resource url: [dir: 'js/lib', file: 'select2.full.min.js']
     }
 
+    'bootstrap-table' {
+        dependsOn 'jquery'
+
+        resource url: [dir: 'css/lib', file: 'bootstrap-table.css']
+        resource url: [dir: 'js/lib', file: 'bootstrap-table.js']
+    }
+
     'updateItem' {
         dependsOn 'bootstrap-datepicker', 'multiselect'
 
         resource url: [dir: 'js/figrails/', file: 'updateItem.js']
+    }
+
+    'listItems' {
+        dependsOn 'bootstrap-table'
+
+        resource url: [dir: 'js/figrails/', file: 'listItems.js']
     }
 }
