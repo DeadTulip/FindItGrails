@@ -7,7 +7,7 @@
             <li><g:link controller="item" action="add">Add Item</g:link></li>
             <li><g:link controller="item" action="list">List Items</g:link></li>
             <li><g:link controller="user" action="index">User info</g:link></li>
-            <li><a href="#">Page 3</a></li>
+            <li><g:link controller="team" action="index">Team info</g:link></li>
         </ul>
     </div>
 </nav>

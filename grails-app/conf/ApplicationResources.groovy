@@ -42,4 +42,8 @@ modules = {
     'userInfo' {
         dependsOn 'bootstrap-table'
     }
+
+    'teamInfo' {
+        dependsOn 'bootstrap-table'
+    }
 }
