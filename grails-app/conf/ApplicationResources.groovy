@@ -38,4 +38,8 @@ modules = {
 
         resource url: [dir: 'js/figrails/', file: 'listItems.js']
     }
+
+    'userInfo' {
+        dependsOn 'bootstrap-table'
+    }
 }
