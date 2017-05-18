@@ -36,7 +36,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
-        test "mysql:mysql-connector-java:6.0.5"
+        compile "mysql:mysql-connector-java:6.0.5"
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
     }
 
@@ -48,11 +48,14 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
+        compile ":twitter-bootstrap:3.3.4"
+        compile ":jquery-ui:1.10.4"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
+        runtime ":resources:1.2.14"
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
