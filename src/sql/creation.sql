@@ -4,8 +4,25 @@ create table user (
     id integer not null auto_increment,
     version integer not null,
     username varchar(50) not null,
+    password varchar(50) not null,
 
     primary key (id)
+);
+
+create table role (
+    id integer not null auto_increment,
+    version integer not null,
+    authority varchar(20) not null,
+
+    primary key (id)
+);
+
+create table user_role (
+    user_id integer not null,
+    role_id integer not null,
+
+    foreign key (user_id) references user(id),
+    foreign key (role_id) references role(id)
 );
 
 create table team (
@@ -13,6 +30,7 @@ create table team (
     version integer not null,
     teamname varchar(50) not null,
     creator integer not null,
+
     primary key (id),
     foreign key (creator) references user(id)
 );

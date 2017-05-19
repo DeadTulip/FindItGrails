@@ -39,4 +39,20 @@ class DomainIntegrationSpec extends IntegrationSpec {
         then:
         println location
     }
+
+    def "test user role"() {
+        given:
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save()
+        def userRole = new Role(authority:  'ROLE_USR').save()
+
+        def testUser = new User(username: 'me', password: 'password').save()
+
+        when:
+        UserRole.create(testUser, adminRole, true).save()
+
+        then:
+        User.count() == 1
+        Role.count() == 2
+        UserRole.count() == 1
+    }
 }

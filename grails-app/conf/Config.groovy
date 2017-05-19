@@ -1,3 +1,5 @@
+import grails.plugin.springsecurity.SecurityConfigType
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -95,6 +97,7 @@ environments {
     }
 }
 
+// ******************************************* log *******************************************
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
@@ -115,3 +118,37 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// ******************************************* security *******************************************
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'p.hh.figrails.domain.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'p.hh.figrails.domain.UserRole'
+grails.plugin.springsecurity.authority.className = 'p.hh.figrails.domain.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
+grails.plugin.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugin.springsecurity.interceptUrlMap = [
+        '/user/**':      ['ROLE_ADMIN'],
+        '/**':           ['IS_AUTHENTICATED_ANONYMOUSLY']
+]
