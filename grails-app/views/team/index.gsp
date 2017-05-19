@@ -17,7 +17,7 @@
             <g:each in="${members}" var="user">
                 <tr>
                     <td></td>
-                    <td>${user.userName}</td>
+                    <td>${user.username}</td>
                     <td>123</td>
                     <td>
                         <a href="#">

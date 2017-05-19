@@ -149,5 +149,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
 grails.plugin.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugin.springsecurity.interceptUrlMap = [
-        '/**':           ['IS_AUTHENTICATED_ANONYMOUSLY']
+        '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**':           ['ROLE_ADMIN']
+
 ]
