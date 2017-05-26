@@ -18,6 +18,20 @@ class ItemService {
         item.save(failOnError: true, flush: true)
     }
 
+    ItemCommand mapItemToCommand(Item item) {
+        ItemCommand cmd = new ItemCommand()
+        cmd.itemId = item.id
+        cmd.itemSize = item.size
+        cmd.itemName = item.name
+        cmd.selectedPeople = item.involvedPeople.split(",")
+        cmd.selectedPlaces = item.involvedPlaces.split(",")
+        cmd.description = item.description
+        cmd.eventStart = item.eventStartTime
+        cmd.eventEnd = item.eventEndTime
+        cmd.type = item.type
+        cmd
+    }
+
     Item mapCommandToItem(ItemCommand command) {
         Item item
         if (command.itemId) {
@@ -42,4 +56,13 @@ class ItemService {
     ItemCommand getItemCommand(Integer itemId) {
 
     }
+
+    List<Item> findAllItemsByUser(User user) {
+        Item.findAllByOwner(user)
+    }
+
+    Item findById(Long id) {
+        Item.findById(id)
+    }
+
 }

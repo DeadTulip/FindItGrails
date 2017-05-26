@@ -10,6 +10,7 @@
                 <th data-sortable="true">dateUpdated</th>
                 <th data-sortable="true">type</th>
                 <th data-sortable="true">size</th>
+                <th>edit</th>
             </tr>
             </thead>
             <tbody>
@@ -17,10 +18,15 @@
                     <tr>
                         <td></td>
                         <td>${item.name}</td>
-                        <td>${item.dateCreated}</td>
-                        <td>${item.dateUpdated}</td>
+                        <td>${item.dateCreated.format("yyyy-MM-dd")}</td>
+                        <td>${item.dateUpdated.format("yyyy-MM-dd")}</td>
                         <td>${item.type}</td>
                         <td>${item.size}</td>
+                        <td>
+                            <g:link controller="item" action="open" params="[itemId: item.id]">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </g:link>
+                        </td>
                     </tr>
                 </g:each>
             </tbody>

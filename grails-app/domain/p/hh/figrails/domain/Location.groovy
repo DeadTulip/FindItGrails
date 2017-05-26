@@ -6,6 +6,8 @@ class Location {
         tablePerSubclass true
     }
 
+    //static belongsTo = [Item]
+
     static constraints = {
     }
 }

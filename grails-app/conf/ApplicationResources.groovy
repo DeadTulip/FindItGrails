@@ -27,7 +27,7 @@ modules = {
         resource url: [dir: 'js/lib', file: 'bootstrap-table.js']
     }
 
-    'updateItem' {
+    'openItem' {
         dependsOn 'bootstrap-datepicker', 'multiselect', 'jquery-ui'
 
         resource url: [dir: 'js/figrails/', file: 'updateItem.js']

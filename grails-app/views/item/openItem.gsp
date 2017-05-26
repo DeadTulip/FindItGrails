@@ -3,11 +3,14 @@
     <r:script>
         gUrl['itemCreate'] = '<g:createLink controller="item" action="create"/>'
     </r:script>
-    <r:require module="updateItem" />
+    <r:require module="openItem" />
 
 
     <div class="container">
-        <h2>Add Item</h2>
+    <h2>
+        <g:if test="${cmd.itemId}">Update Item</g:if>
+        <g:else>Add Item</g:else>
+    </h2>
         <form id='itemForm' class="form-horizontal" action="#">
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -16,6 +19,8 @@
                     </div>
                 </div>
             </div>
+
+            <g:hiddenField name="itemId" value="${cmd.itemId}" />
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputItemName">Name:</label>
@@ -79,7 +84,10 @@
 
         </form>
         <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-primary" id="btnAdd">Add</button>
+            <button class="btn btn-primary" id="btnAdd">
+                <g:if test="${cmd.itemId}">Update</g:if>
+                <g:else>Add</g:else>
+            </button>
         </div>
     </div>
 
