@@ -1,12 +1,26 @@
 package p.hh.figrails.controllers
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
+import p.hh.figrails.commands.ItemCommand
 import p.hh.figrails.domain.Item
+import p.hh.figrails.domain.User
+import p.hh.finditgrails.services.ItemService
 
 class ItemController {
+    def itemService
+    def springSecurityService
 
     def add() {
+        render(view: 'updateItem', model: [cmd: new ItemCommand()])
+    }
 
-        render(view: 'updateItem')
+    def create(ItemCommand cmd) {
+        User currentUser = springSecurityService.currentUser
+        cmd.ownerId = currentUser.id
+        cmd.ownerName = currentUser.username
+        Item item = itemService.createItem(cmd)
+        render([itemId: item.id] as JSON)
     }
 
     def list() {

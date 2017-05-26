@@ -28,7 +28,7 @@ modules = {
     }
 
     'updateItem' {
-        dependsOn 'bootstrap-datepicker', 'multiselect'
+        dependsOn 'bootstrap-datepicker', 'multiselect', 'jquery-ui'
 
         resource url: [dir: 'js/figrails/', file: 'updateItem.js']
     }

@@ -70,8 +70,8 @@ create table physical_location (
 create table item (
     id integer not null auto_increment,
     version integer not null,
-    owner integer not null,
-    location integer not null,
+    owner_id integer not null,
+    location_id integer not null,
     name varchar(200) not null,
     date_created date not null,
     date_updated date not null,
@@ -84,6 +84,6 @@ create table item (
     description varchar(5000),
 
     primary key (id),
-    foreign key (owner) references user(id),
-    foreign key (location) references location(id)
+    foreign key (owner_id) references user(id),
+    foreign key (location_id) references location(id)
 );
