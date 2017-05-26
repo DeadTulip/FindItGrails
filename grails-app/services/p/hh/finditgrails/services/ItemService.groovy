@@ -18,6 +18,13 @@ class ItemService {
         item.save(failOnError: true, flush: true)
     }
 
+    Item updateItem(ItemCommand command) {
+        Item item = mapCommandToItem(command)
+        Date now = new Date()
+        item.dateUpdated = now
+        item.save(failOnError: true, flush: true)
+    }
+
     ItemCommand mapItemToCommand(Item item) {
         ItemCommand cmd = new ItemCommand()
         cmd.itemId = item.id

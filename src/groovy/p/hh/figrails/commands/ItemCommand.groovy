@@ -20,12 +20,19 @@ class ItemCommand {
     String description
 
     String getInvolvedPeople() {
-        selectedPeople.addAll(additionalPeople.split(",")*.trim())
-        selectedPeople.unique().sort()
+        getInvolvedInfo(selectedPeople, additionalPeople)
     }
 
     String getInvolvedPlaces() {
-        selectedPlaces.addAll(additionalPlaces.split(",")*.trim())
-        selectedPlaces.unique().sort()
+        getInvolvedInfo(selectedPlaces, additionalPlaces)
+    }
+
+    private String getInvolvedInfo(List<String> selectedInfo, String additionalInfo) {
+        List<String> additionalInfoList = []
+        if(additionalInfo) {
+            additionalInfoList = additionalInfo.split(",")*.trim()
+        }
+        selectedInfo.addAll(additionalInfoList)
+        selectedInfo.unique().sort().join(",")
     }
 }

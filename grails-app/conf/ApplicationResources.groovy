@@ -30,7 +30,7 @@ modules = {
     'openItem' {
         dependsOn 'bootstrap-datepicker', 'multiselect', 'jquery-ui'
 
-        resource url: [dir: 'js/figrails/', file: 'updateItem.js']
+        resource url: [dir: 'js/figrails/', file: 'openItem.js']
     }
 
     'listItems' {

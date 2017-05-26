@@ -1,10 +1,15 @@
 <g:applyLayout name="main">
 
     <r:script>
-        gUrl['itemCreate'] = '<g:createLink controller="item" action="create"/>'
+        var gUrl = [];
+
+        if(${cmd.itemId == null} === true) {
+            gUrl['itemAction'] = "<g:createLink controller="item" action="create" />"
+        } else {
+            gUrl['itemAction'] = "<g:createLink controller="item" action="update" params="[itemId: cmd.itemId]"/>"
+        }
     </r:script>
     <r:require module="openItem" />
-
 
     <div class="container">
     <h2>
@@ -46,14 +51,14 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventStart">Event start:</label>
                 <div class="col-md-3" id="eventStartDateContainer">
-                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart}" />
+                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart.format("MM/dd/yyyy")}" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventEnd">Event end:</label>
                 <div class="col-md-3" id="eventEndDateContainer">
-                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd}" />
+                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd.format("MM/dd/yyyy")}" />
                 </div>
             </div>
 

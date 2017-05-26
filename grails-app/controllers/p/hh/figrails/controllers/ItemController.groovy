@@ -35,6 +35,12 @@ class ItemController {
         Item item = itemService.createItem(cmd)
         render([itemId: item.id] as JSON)
     }
-    
 
+    def update(ItemCommand cmd) {
+        User currentUser = springSecurityService.currentUser
+        cmd.ownerId = currentUser.id
+        cmd.ownerName = currentUser.username
+        Item item = itemService.updateItem(cmd)
+        render([itemId: item.id] as JSON)
+    }
 }
