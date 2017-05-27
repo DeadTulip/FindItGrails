@@ -31,13 +31,16 @@
             </tbody>
         </table>
         <p>
-        <div class="col-lg-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type member name">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary">Add member</button>
-                </span>
+        <g:form controller="team" action="addMember" >
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <g:hiddenField name="teamId" value="${cmd.team.id}" />
+                    <input type="text" class="form-control" placeholder="Type member name" name="memberName">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Add member</button>
+                    </span>
+                </div>
             </div>
-        </div>
+        </g:form>
     </div>
 </g:applyLayout>

@@ -28,4 +28,8 @@ class UserService {
         involvedInfoList = involvedInfoList.unique().sort()
         involvedInfoList
     }
+
+    User findUserByName(String name) {
+        User.findByUsername(name)
+    }
 }

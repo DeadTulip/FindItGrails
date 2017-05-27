@@ -53,4 +53,9 @@ class TeamService {
         teamCommand.userItemCountList = userItemCountList
         teamCommand
     }
+
+    Team addMemberToTeam(User user, Team team) {
+        team.members.add(user)
+        team.save(flush: true)
+    }
 }
