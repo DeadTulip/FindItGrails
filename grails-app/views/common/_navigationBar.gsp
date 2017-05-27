@@ -8,7 +8,6 @@
                 <li><g:link controller="item" action="open">Add Item</g:link></li>
                 <li><g:link controller="item" action="list">List Items</g:link></li>
                 <li><g:link controller="user" action="index">User info</g:link></li>
-                <li><g:link controller="team" action="index">Team info</g:link></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><g:link controller="user" action="index">

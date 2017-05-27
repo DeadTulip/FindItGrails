@@ -29,9 +29,9 @@
                     <td></td>
                     <td>${team.teamName}</td>
                     <td>
-                        <a href="#">
+                        <g:link controller="team" action="open" params="[teamId: team.id]">
                             <span class="glyphicon glyphicon-cog"></span>
-                        </a>
+                        </g:link>
                     </td>
                 </tr>
             </g:each>

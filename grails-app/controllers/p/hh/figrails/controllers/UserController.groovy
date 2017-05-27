@@ -27,4 +27,5 @@ class UserController {
         List<Team> joinedTeams = teamService.teamsJoinedByUser(springSecurityService.currentUser)
         render(view: 'index', model: [ownedTeams: ownedTeams, joinedTeams: joinedTeams, createTeamError: createTeamError])
     }
+
 }

@@ -51,14 +51,14 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventStart">Event start:</label>
                 <div class="col-md-3" id="eventStartDateContainer">
-                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart.format("MM/dd/yyyy")}" />
+                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart?.format("MM/dd/yyyy")}" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventEnd">Event end:</label>
                 <div class="col-md-3" id="eventEndDateContainer">
-                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd.format("MM/dd/yyyy")}" />
+                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd?.format("MM/dd/yyyy")}" />
                 </div>
             </div>
 

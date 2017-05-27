@@ -1,8 +1,8 @@
 <g:applyLayout name="main">
     <r:require module="teamInfo"/>
     <div class="container">
-        <h2>${teamName}</h2>
-        <div><label>Creator</label> ${creator}</div>
+        <h2>${cmd.team.teamName}</h2>
+        <div><label>Creator</label> ${cmd.team.creator.username}</div>
         <label>Members</label>
         <table data-toggle="table">
             <thead>
@@ -14,15 +14,17 @@
             </tr>
             </thead>
             <tbody>
-            <g:each in="${members}" var="user">
+            <g:each in="${cmd.userItemCountList}" var="userItems">
                 <tr>
                     <td></td>
-                    <td>${user.username}</td>
-                    <td>123</td>
+                    <td>${userItems.user.username}</td>
+                    <td>${userItems.count}</td>
                     <td>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-ban-circle"></span>
-                        </a>
+                        <g:if test="${cmd.team.creator != userItems.user}">
+                            <a href="#">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                            </a>
+                        </g:if>
                     </td>
                 </tr>
             </g:each>
