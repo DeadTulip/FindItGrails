@@ -4,6 +4,17 @@
         <h2>User</h2>
         <div><label>Item owned</label> 123</div>
         <label>My teams</label>
+        <g:form controller="user" action="createTeam">
+            <div class="input-group">
+                <input type="text" class="form-control" name="teamName">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Create team</button>
+                </span>
+            </div>
+            <g:if test="${createTeamError}" >
+                <div class="alert alert-danger">${createTeamError}</div>
+            </g:if>
+        </g:form>
         <table data-toggle="table">
             <thead>
             <tr>
@@ -13,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <g:each in="${teams}" var="team">
+            <g:each in="${ownedTeams}" var="team">
                 <tr>
                     <td></td>
                     <td>${team.teamName}</td>
@@ -38,7 +49,7 @@
             </tr>
             </thead>
             <tbody>
-            <g:each in="${teams}" var="team">
+            <g:each in="${joinedTeams}" var="team">
                 <tr>
                     <td></td>
                     <td>${team.teamName}</td>
