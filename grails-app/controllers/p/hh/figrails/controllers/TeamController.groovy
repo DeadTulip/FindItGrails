@@ -28,5 +28,5 @@ class TeamController {
         TeamCommand cmd = teamService.mapTeamToTeamCommand(team)
         render(view: 'index', model: [cmd: cmd])
     }
-    
+
 }

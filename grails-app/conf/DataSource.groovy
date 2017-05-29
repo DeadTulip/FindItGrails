@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "com.mysql.cj.jdbc.Driver"
+    driverClassName = "com.mysql.jdbc.Driver"
     username = "root"
     password = "root"
     //loggingSql = true
