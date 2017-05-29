@@ -7,7 +7,7 @@ class DomainIntegrationSpec extends IntegrationSpec {
     def "test User and team"() {
         given:
         User user = new User()
-        user.userName = 'haihan'
+        user.username = 'haihan'
 
         Team team = new Team()
         team.creator = user

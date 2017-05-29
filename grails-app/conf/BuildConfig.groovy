@@ -3,8 +3,8 @@ grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
-grails.project.target.level = 1.7
-grails.project.source.level = 1.7
+grails.project.target.level = 1.8
+grails.project.source.level = 1.8
 grails.server.port.http=8888
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
@@ -39,13 +39,13 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.55"
+        build ":tomcat:8.0.33"
 
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
-        //compile ":twitter-bootstrap:3.3.4"
+//        compile ":twitter-bootstrap:3.3.4"
         compile ":jquery-ui:1.10.4"
         compile ":spring-security-core:2.0.0"
         compile ":spring-security-ui:1.0-RC3"
