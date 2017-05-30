@@ -54,7 +54,7 @@
                     <td></td>
                     <td>${team.teamName}</td>
                     <td>
-                        <a href="#">
+                        <a href="#" onclick="leaveTeam(${team.id}, '${team.teamName}')">
                             <span class="glyphicon glyphicon-log-out"></span>
                         </a>
                     </td>
@@ -63,4 +63,11 @@
             </tbody>
         </table>
     </div>
+
+    <div id="leaveTeamDialog" title="Basic dialog">
+    </div>
+
+    <g:form name="leaveTeamForm" controller="team" action="leaveTeam" >
+        <g:hiddenField name="teamId" value="" />
+    </g:form>
 </g:applyLayout>

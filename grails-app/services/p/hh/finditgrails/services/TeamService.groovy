@@ -58,4 +58,9 @@ class TeamService {
         team.members.add(user)
         team.save(flush: true)
     }
+
+    void removeMemberFromTeam(User user, Team team) {
+        team.members.remove(user)
+        team.save(flush: true)
+    }
 }

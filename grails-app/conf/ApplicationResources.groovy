@@ -33,10 +33,14 @@ modules = {
     }
 
     'userInfo' {
-        dependsOn 'bootstrap-table'
+        dependsOn 'bootstrap-table', 'jquery-ui'
+
+        resource url: [dir: 'js/figrails/', file: 'userInfo.js']
     }
 
     'teamInfo' {
-        dependsOn 'bootstrap-table'
+        dependsOn 'bootstrap-table', 'jquery-ui'
+
+        resource url: [dir: 'js/figrails/', file: 'teamInfo.js']
     }
 }

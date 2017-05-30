@@ -21,7 +21,7 @@
                     <td>${userItems.count}</td>
                     <td>
                         <g:if test="${cmd.team.creator != userItems.user}">
-                            <a href="#">
+                            <a href="#" onclick="removeMemberFromTeam(${cmd.team.id}, '${cmd.team.teamName}', ${userItems.user.id}, '${userItems.user.username}')">
                                 <span class="glyphicon glyphicon-ban-circle"></span>
                             </a>
                         </g:if>
@@ -43,4 +43,13 @@
             </div>
         </g:form>
     </div>
+
+    <div id="removeMemberDialog" title="Basic dialog">
+    </div>
+
+    <g:form name="removeMemberForm" controller="team" action="removeMember" >
+        <g:hiddenField name="teamId" value="" />
+        <g:hiddenField name="userId" value="" />
+    </g:form>
+
 </g:applyLayout>

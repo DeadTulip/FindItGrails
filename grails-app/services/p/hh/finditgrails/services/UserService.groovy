@@ -32,4 +32,8 @@ class UserService {
     User findUserByName(String name) {
         User.findByUsername(name)
     }
+
+    User findUserById(Long id) {
+        User.findById(id)
+    }
 }
