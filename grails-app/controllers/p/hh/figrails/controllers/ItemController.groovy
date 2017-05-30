@@ -6,9 +6,11 @@ import p.hh.figrails.commands.ItemCommand
 import p.hh.figrails.domain.Item
 import p.hh.figrails.domain.User
 import p.hh.finditgrails.services.ItemService
+import p.hh.finditgrails.services.UserService
 
 class ItemController {
     def itemService
+    def userService
     def springSecurityService
 
     def open() {
@@ -23,9 +25,16 @@ class ItemController {
     }
 
     def list() {
-        List<Item> items = itemService.findAllItemsByUser(springSecurityService.currentUser)
+        List<Item> items = []
+        if (params.userId) {
+            User user = userService.findUserById(params.long("userId"))
+            items.addAll(itemService.findAllOwnedItemsByUser(user))
 
-        render(view: 'listItem', model: [items: items])
+        } else {
+            items.addAll(itemService.findAllAccessibleItemsByUser(springSecurityService.currentUser))
+        }
+
+        render(view: 'listItem', model: [items: items, currentUser: springSecurityService.currentUser])
     }
 
     def create(ItemCommand cmd) {

@@ -9,6 +9,7 @@ import p.hh.figrails.domain.User
 
 @Transactional
 class ItemService {
+    def teamService
 
     Item createItem(ItemCommand command) {
         Item item = mapCommandToItem(command)
@@ -64,8 +65,20 @@ class ItemService {
 
     }
 
-    List<Item> findAllItemsByUser(User user) {
+    List<Item> findAllOwnedItemsByUser(User user) {
         Item.findAllByOwner(user)
+    }
+
+    List<Item> findAllAccessibleItemsByUser(User user) {
+        List<Item> items = findAllOwnedItemsByUser(user)
+        Set<User> accessibleUsers = []
+        teamService.teamsOwnedByUser(user).each {
+            accessibleUsers.addAll(it.members)
+        }
+        accessibleUsers.each {
+            items.addAll(findAllOwnedItemsByUser(it))
+        }
+        items
     }
 
     Item findById(Long id) {

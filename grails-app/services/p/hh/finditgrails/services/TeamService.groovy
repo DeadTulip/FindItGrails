@@ -48,7 +48,7 @@ class TeamService {
             userItemCountList.add(
                     new TeamCommand.UserItemCount(
                             user: it,
-                            count: itemService.findAllItemsByUser(it).size()))
+                            count: itemService.findAllOwnedItemsByUser(it).size()))
         }
         teamCommand.userItemCountList = userItemCountList
         teamCommand

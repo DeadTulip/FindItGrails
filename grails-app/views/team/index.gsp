@@ -18,7 +18,16 @@
                 <tr>
                     <td></td>
                     <td>${userItems.user.username}</td>
-                    <td>${userItems.count}</td>
+                    <td>
+                        <g:if test="${userItems.count}">
+                            <g:link controller="item" action="list" params="[userId: userItems.user.id]">
+                                ${userItems.count}
+                            </g:link>
+                        </g:if>
+                        <g:else>
+                            ${userItems.count}
+                        </g:else>
+                    </td>
                     <td>
                         <g:if test="${cmd.team.creator != userItems.user}">
                             <a href="#" onclick="removeMemberFromTeam(${cmd.team.id}, '${cmd.team.teamName}', ${userItems.user.id}, '${userItems.user.username}')">

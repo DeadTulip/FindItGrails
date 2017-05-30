@@ -23,9 +23,16 @@
                         <td>${item.type}</td>
                         <td>${item.size}</td>
                         <td>
-                            <g:link controller="item" action="open" params="[itemId: item.id]">
-                                <span class="glyphicon glyphicon-cog"></span>
-                            </g:link>
+                            <g:if test="${item.owner == currentUser}">
+                                <g:link controller="item" action="open" params="[itemId: item.id]">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </g:link>
+                            </g:if>
+                            <g:else>
+                                <g:link controller="item" action="open" params="[itemId: item.id, readonly: true]">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </g:link>
+                            </g:else>
                         </td>
                     </tr>
                 </g:each>
