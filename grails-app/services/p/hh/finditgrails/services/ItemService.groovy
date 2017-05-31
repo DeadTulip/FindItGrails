@@ -2,9 +2,11 @@ package p.hh.finditgrails.services
 
 import grails.transaction.Transactional
 import p.hh.figrails.commands.ItemCommand
+import p.hh.figrails.domain.DiskItem
 import p.hh.figrails.domain.DiskLocation
 import p.hh.figrails.domain.Item
 import p.hh.figrails.domain.Location
+import p.hh.figrails.domain.PhysicalItem
 import p.hh.figrails.domain.User
 
 @Transactional
@@ -29,36 +31,69 @@ class ItemService {
     ItemCommand mapItemToCommand(Item item) {
         ItemCommand cmd = new ItemCommand()
         cmd.itemId = item.id
-        cmd.itemSize = item.size
         cmd.itemName = item.name
         cmd.selectedPeople = item.involvedPeople.split(",")
         cmd.selectedPlaces = item.involvedPlaces.split(",")
         cmd.description = item.description
         cmd.eventStart = item.eventStartTime
         cmd.eventEnd = item.eventEndTime
-        cmd.type = item.type
+
+        if (item instanceof DiskItem) {
+            Item diskItem = (DiskItem) item
+            cmd.itemType = 'disk'
+            cmd.fileSize = diskItem.fileSize
+            cmd.fileType = diskItem.fileType
+
+        } else {
+            cmd.itemType = 'physical'
+        }
+
         cmd
     }
 
     Item mapCommandToItem(ItemCommand command) {
-        Item item
-        if (command.itemId) {
-            item = Item.findById(command.itemId)
+        if (command.itemType == 'disk') {
+            mapCommandToDiskItem(command)
         } else {
-            item = new Item()
+            mapCommandToPhysicalItem(command)
         }
+    }
 
+    private DiskItem mapCommandToDiskItem(ItemCommand command) {
+        DiskItem item
+        if (command.itemId) {
+            item = (DiskItem) Item.findById(command.itemId)
+        } else {
+            item = new DiskItem()
+        }
+        bindItemData(command, item)
+
+        item.fileSize = command.fileSize
+        item.fileType = command.fileType
+        item
+    }
+
+    private PhysicalItem mapCommandToPhysicalItem(ItemCommand command) {
+        PhysicalItem item
+        if (command.itemId) {
+            item = (PhysicalItem) Item.findById(command.itemId)
+        } else {
+            item = new PhysicalItem()
+        }
+        bindItemData(command, item)
+
+        item
+    }
+
+    private void bindItemData(ItemCommand command, Item item) {
         item.owner = User.findById(command.ownerId)
         item.location = Location.findById(1L)
-        item.size = command.itemSize
         item.name = command.itemName
         item.involvedPeople = command.involvedPeople
         item.involvedPlaces = command.involvedPlaces
         item.description = command.description
         item.eventStartTime = command.eventStart
         item.eventEndTime = command.eventEnd
-        item.type = command.type
-        item
     }
 
     ItemCommand getItemCommand(Integer itemId) {

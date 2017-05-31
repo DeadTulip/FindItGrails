@@ -20,6 +20,7 @@ class ItemController {
             cmd = itemService.mapItemToCommand(item)
         } else {
             cmd = new ItemCommand()
+            cmd.itemType = params.itemType
         }
         render(view: 'openItem', model: [cmd: cmd])
     }

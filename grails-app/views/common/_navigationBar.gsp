@@ -5,7 +5,8 @@
         </div>
         <sec:ifLoggedIn>
             <ul class="nav navbar-nav">
-                <li><g:link controller="item" action="open">Add Item</g:link></li>
+                <li><g:link controller="item" action="open" params="[itemType: 'disk']">Add Disk Item</g:link></li>
+                <li><g:link controller="item" action="open" params="[itemType: 'phsical']">Add Physical Item</g:link></li>
                 <li><g:link controller="item" action="list">List Items</g:link></li>
                 <li><g:link controller="user" action="index">User info</g:link></li>
             </ul>

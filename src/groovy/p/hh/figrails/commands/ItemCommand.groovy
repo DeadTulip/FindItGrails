@@ -5,12 +5,13 @@ import p.hh.figrails.domain.User
 
 
 class ItemCommand {
+    String itemType
     Long ownerId
     String ownerName
     Long itemId
     String itemName
-    Long itemSize
-    String type
+    Long fileSize
+    String fileType
     Date eventStart
     Date eventEnd
     List<String> selectedPeople = []

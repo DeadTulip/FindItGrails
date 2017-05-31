@@ -17,36 +17,16 @@
         <g:else>Add Item</g:else>
     </h2>
         <form id='itemForm' class="form-horizontal" action="#">
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label><input type="checkbox">Is a physical item?</label>
-                    </div>
-                </div>
-            </div>
-
             <g:hiddenField name="itemId" value="${cmd.itemId}" />
+            <g:hiddenField name="itemType" value="${cmd.itemType}" />
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="inputItemName">Name:</label>
-                <div class="col-sm-6">
-                    <g:textField class="form-control" id="inputItemName" name="itemName" value="${cmd.itemName}" />
-                </div>
-            </div>
+            <g:if test="${cmd.itemType == 'disk'}">
+                <g:render template="openDiskItem" model="[cmd: cmd]"/>
+            </g:if>
+            <g:else>
+                <g:render template="openPhysicalItem" model="[cmd: cmd]"/>
+            </g:else>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="inputType">Type:</label>
-                <div class="col-sm-2">
-                    <g:textField class="form-control" id="inputType" name="type" value="${cmd.type}" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="inputItemSize">Size:</label>
-                <div class="col-sm-2">
-                    <g:textField class="form-control" id="inputItemSize" name="itemSize" value="${cmd.itemSize}" />
-                </div>
-            </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventStart">Event start:</label>

@@ -97,7 +97,7 @@ environments {
     }
 }
 
-grails.databinding.dateFormats = ["MM/dd/yyyy"]
+grails.databinding.dateFormats = ["dd/mm/yy"]
 // ******************************************* log *******************************************
 // log4j configuration
 log4j.main = {

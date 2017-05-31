@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $('#eventStartDateContainer input').datepicker({dateFormat: 'dd/MM/yyyy'});
+    $('#eventStartDateContainer input').datepicker({dateFormat: 'dd/mm/yy'});
 
-    $('#eventEndDateContainer input').datepicker({dateFormat: 'dd/MM/yyyy'});
+    $('#eventEndDateContainer input').datepicker({dateFormat: 'dd/mm/yy'});
 
     $('#inputSelectedPeople').select2();
 
