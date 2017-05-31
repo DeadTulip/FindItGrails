@@ -1,6 +1,6 @@
-use findit;
+use findit_test;
 
-
+drop table team_item;
 drop table item;
 drop table user_role;
 drop table role;

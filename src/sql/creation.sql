@@ -1,10 +1,10 @@
-use findit;
+use findit_test;
 
 create table user (
     id integer not null auto_increment,
     version integer not null,
     username varchar(50) not null,
-    password varchar(50) not null,
+    password varchar(100) not null,
 
     primary key (id)
 );
@@ -75,15 +75,26 @@ create table item (
     name varchar(200) not null,
     date_created date not null,
     date_updated date not null,
-    type varchar(20),
-    size integer,
     event_start_time date,
     event_end_time date,
     people varchar(5000),
     places varchar(5000),
     description varchar(5000),
+    item_type varchar(5) not null,
+    file_type varchar(20),
+    file_size integer,
+    picture integer,
 
     primary key (id),
     foreign key (owner_id) references user(id),
-    foreign key (location_id) references location(id)
+    foreign key (location_id) references location(id),
+    foreign key (location_id) references disk_location(id)
+);
+
+create table team_item (
+    team_id integer not null,
+    item_id integer not null,
+
+    foreign key (team_id) references team(id),
+    foreign key (item_id) references item(id)
 );

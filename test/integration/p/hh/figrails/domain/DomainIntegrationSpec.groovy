@@ -4,6 +4,35 @@ import grails.test.spock.IntegrationSpec
 
 
 class DomainIntegrationSpec extends IntegrationSpec {
+    def "test items"() {
+        given:
+        User user = new User()
+        user.username = 'haihan'
+        user.password = 'password1'
+        user.save(flush: true)
+
+        Location location = new DiskLocation()
+        location.onDiskName = "temp"
+        location.save(flush: true)
+
+        DiskItem item = new DiskItem()
+        item.owner = user
+        item.location = location
+        item.dateCreated = new Date()
+        item.dateUpdated = new Date()
+        item.name = "file.pdf"
+        item.fileType = "pdf"
+        item.fileSize = 12L
+
+        when:
+        item.save(flush: true)
+
+        then:
+        println item.id
+
+    }
+
+
     def "test User and team"() {
         given:
         User user = new User()
