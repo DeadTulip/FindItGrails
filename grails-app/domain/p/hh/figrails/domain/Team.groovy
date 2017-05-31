@@ -3,10 +3,11 @@ package p.hh.figrails.domain
 class Team {
 
     String teamName
-    User creator
     Set<User> members = []
 
+    static hasOne = [creator: User]
     static hasMany = [members: User]
+    static belongsTo = [User]
 
     static mapping = {
         table 'team'

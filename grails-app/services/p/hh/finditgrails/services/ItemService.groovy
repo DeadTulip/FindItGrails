@@ -37,6 +37,7 @@ class ItemService {
         cmd.description = item.description
         cmd.eventStart = item.eventStartTime
         cmd.eventEnd = item.eventEndTime
+        cmd.sharedTeams.addAll(item.sharedTeams*.teamName)
 
         if (item instanceof DiskItem) {
             Item diskItem = (DiskItem) item
@@ -107,7 +108,7 @@ class ItemService {
     List<Item> findAllAccessibleItemsByUser(User user) {
         List<Item> items = findAllOwnedItemsByUser(user)
         Set<User> accessibleUsers = []
-        teamService.teamsOwnedByUser(user).each {
+        teamService.teamsCreatedByUser(user).each {
             accessibleUsers.addAll(it.members)
         }
         accessibleUsers.each {

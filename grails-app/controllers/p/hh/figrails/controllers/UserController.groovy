@@ -8,8 +8,8 @@ class UserController {
     def springSecurityService
 
     def index() {
-        List<Team> ownedTeams = teamService.teamsOwnedByUser(springSecurityService.currentUser)
-        List<Team> joinedTeams = teamService.teamsJoinedByUser(springSecurityService.currentUser)
+        Set<Team> ownedTeams = teamService.teamsCreatedByUser(springSecurityService.currentUser)
+        Set<Team> joinedTeams = teamService.teamsJoinedByUser(springSecurityService.currentUser)
         render(view: 'index', model: [ownedTeams: ownedTeams, joinedTeams: joinedTeams])
     }
 
@@ -23,8 +23,8 @@ class UserController {
             teamService.createTeam(teamName, springSecurityService.currentUser)
         }
 
-        List<Team> ownedTeams = teamService.teamsOwnedByUser(springSecurityService.currentUser)
-        List<Team> joinedTeams = teamService.teamsJoinedByUser(springSecurityService.currentUser)
+        Set<Team> ownedTeams = teamService.teamsCreatedByUser(springSecurityService.currentUser)
+        Set<Team> joinedTeams = teamService.teamsJoinedByUser(springSecurityService.currentUser)
         render(view: 'index', model: [ownedTeams: ownedTeams, joinedTeams: joinedTeams, createTeamError: createTeamError])
     }
 

@@ -3,15 +3,17 @@ package p.hh.figrails.domain
 class User {
 
     transient springSecurityService
+    static transients = ['springSecurityService']
 
     String username
     String password
-
+    Set<Team> createdTeams = []
     Set<Team> teams = []
 
-    static hasMany = [teams: Team]
-    static belongsTo = Team
-    static transients = ['springSecurityService']
+    static hasMany = [teams: Team, createdTeams: Team]
+
+    static mappedBy = [teams: 'members', createdTeams: 'creator']
+
     static mapping = {
         table 'user'
         username column: 'username'

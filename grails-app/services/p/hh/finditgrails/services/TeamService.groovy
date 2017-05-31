@@ -10,15 +10,12 @@ import p.hh.figrails.domain.User
 class TeamService {
     def itemService
 
-    List<Team> teamsOwnedByUser(User user) {
-        Team.findAllByCreator(user)
+    Set<Team> teamsCreatedByUser(User user) {
+        user.createdTeams.toList()
     }
 
-    List<Team> teamsJoinedByUser(User user) {
-        List<Team> teams = Team.findAll()
-        teams.findAll{
-            it.members.contains(user)
-        }
+    Set<Team> teamsJoinedByUser(User user) {
+        user.teams
     }
 
     Team findTeamWithName(String name) {
@@ -30,6 +27,11 @@ class TeamService {
         team.teamName = name
         team.creator = creator
         team.save(failOnError: true, flush: true)
+
+        creator.teams.add(team)
+        creator.save(failOnError: true, flush: true)
+
+        team
     }
 
     Team findTeamById(Long id) {

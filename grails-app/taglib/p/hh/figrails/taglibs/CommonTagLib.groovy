@@ -1,6 +1,7 @@
 package p.hh.figrails.taglibs
 
 import grails.plugin.springsecurity.SpringSecurityService
+import p.hh.figrails.domain.Team
 import p.hh.finditgrails.services.UserService
 
 class CommonTagLib {
@@ -26,6 +27,18 @@ class CommonTagLib {
 
         Map bodyAttr = [:]
         bodyAttr << [ allOptions: allPlaceList ]
+        bodyAttr << [ selectedOptions: attributes.selectedOptions ]
+
+        out << "<select class=\"${attributes['class']}\" id=\"${attributes.id}\" name=\"${attributes.name}\" multiple=\"multiple\" />"
+        out << involedInfoSelectBody(bodyAttr)
+        out << "</select>"
+    }
+
+    def sharedTeamSelect = { attributes, body ->
+        List<String> allTeamList = userService.allAccessibleTeams(springSecurityService.currentUser)*.teamName
+
+        Map bodyAttr = [:]
+        bodyAttr << [ allOptions: allTeamList ]
         bodyAttr << [ selectedOptions: attributes.selectedOptions ]
 
         out << "<select class=\"${attributes['class']}\" id=\"${attributes.id}\" name=\"${attributes.name}\" multiple=\"multiple\" />"

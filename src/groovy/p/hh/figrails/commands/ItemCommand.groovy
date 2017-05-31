@@ -1,6 +1,7 @@
 package p.hh.figrails.commands
 
 import p.hh.figrails.domain.Location
+import p.hh.figrails.domain.Team
 import p.hh.figrails.domain.User
 
 
@@ -19,6 +20,7 @@ class ItemCommand {
     List<String> selectedPlaces = []
     String additionalPlaces
     String description
+    List<String> sharedTeams = []
 
     String getInvolvedPeople() {
         getInvolvedInfo(selectedPeople, additionalPeople)

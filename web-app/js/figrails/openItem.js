@@ -7,6 +7,8 @@ $(document).ready(function() {
 
     $('#inputSelectedPlaces').select2();
 
+    $('#inputSharedTeams').select2();
+
     $("div#successDialog").dialog({
         autoOpen: false,
         dialogClass: "no-close",

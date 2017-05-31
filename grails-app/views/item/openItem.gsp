@@ -20,6 +20,13 @@
             <g:hiddenField name="itemId" value="${cmd.itemId}" />
             <g:hiddenField name="itemType" value="${cmd.itemType}" />
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="inputSelectedPlaces">Shared teams:</label>
+                <div class="col-sm-8">
+                    <figr:sharedTeamSelect class="form-control" id="inputSharedTeams" name="sharedTeams" selectedOptions="${cmd.sharedTeams}" />
+                </div>
+            </div>
+
             <g:if test="${cmd.itemType == 'disk'}">
                 <g:render template="openDiskItem" model="[cmd: cmd]"/>
             </g:if>
