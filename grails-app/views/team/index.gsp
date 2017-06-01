@@ -29,7 +29,7 @@
                         </g:else>
                     </td>
                     <td>
-                        <g:if test="${cmd.team.creator != userItems.user}">
+                        <g:if test="${cmd.team.creator.id != userItems.user.id}">
                             <a href="#" onclick="removeMemberFromTeam(${cmd.team.id}, '${cmd.team.teamName}', ${userItems.user.id}, '${userItems.user.username}')">
                                 <span class="glyphicon glyphicon-ban-circle"></span>
                             </a>

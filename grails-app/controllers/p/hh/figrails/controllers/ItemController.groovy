@@ -22,7 +22,7 @@ class ItemController {
             cmd = new ItemCommand()
             cmd.itemType = params.itemType
         }
-        render(view: 'openItem', model: [cmd: cmd])
+        render(view: 'openItem', model: [cmd: cmd, readonly: params.boolean("readonly")])
     }
 
     def list() {

@@ -7,6 +7,7 @@ import p.hh.figrails.domain.DiskLocation
 import p.hh.figrails.domain.Item
 import p.hh.figrails.domain.Location
 import p.hh.figrails.domain.PhysicalItem
+import p.hh.figrails.domain.Team
 import p.hh.figrails.domain.User
 
 @Transactional
@@ -19,6 +20,9 @@ class ItemService {
         item.dateCreated = now
         item.dateUpdated = now
         item.save(failOnError: true, flush: true)
+
+        updateTeams(command.sharedTeams, item)
+        item
     }
 
     Item updateItem(ItemCommand command) {
@@ -26,6 +30,29 @@ class ItemService {
         Date now = new Date()
         item.dateUpdated = now
         item.save(failOnError: true, flush: true)
+
+        updateTeams(command.sharedTeams, item)
+        item
+    }
+
+    private void updateTeams(List<String> teams, Item item) {
+        Set<Team> previousSharedTeams = item.sharedTeams
+        Set<Team> updatedSharedTeams = []
+        teams.each {
+            updatedSharedTeams.add(Team.findByTeamName(it))
+        }
+
+        Set<Team> addedTeams = updatedSharedTeams - previousSharedTeams
+        Set<Team> removedTeams = previousSharedTeams - updatedSharedTeams
+
+        addedTeams.each {
+            it.items.add(item)
+            it.save(failOnError: true, flush: true)
+        }
+        removedTeams.each {
+            it.items.remove(item)
+            it.save(failOnError: true, flush: true)
+        }
     }
 
     ItemCommand mapItemToCommand(Item item) {
@@ -101,18 +128,16 @@ class ItemService {
 
     }
 
-    List<Item> findAllOwnedItemsByUser(User user) {
+    Set<Item> findAllOwnedItemsByUser(User user) {
         Item.findAllByOwner(user)
     }
 
-    List<Item> findAllAccessibleItemsByUser(User user) {
-        List<Item> items = findAllOwnedItemsByUser(user)
-        Set<User> accessibleUsers = []
-        teamService.teamsCreatedByUser(user).each {
-            accessibleUsers.addAll(it.members)
-        }
-        accessibleUsers.each {
-            items.addAll(findAllOwnedItemsByUser(it))
+    Set<Item> findAllAccessibleItemsByUser(User user) {
+        Set<Item> items = findAllOwnedItemsByUser(user)
+        Set<Team> accessibleTeams = teamService.teamsJoinedByUser(user)
+
+        accessibleTeams.each {
+            items.addAll(it.items)
         }
         items
     }

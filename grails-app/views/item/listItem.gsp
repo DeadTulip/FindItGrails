@@ -9,7 +9,8 @@
                 <th data-sortable="true">dateCreated</th>
                 <th data-sortable="true">dateUpdated</th>
                 <th data-sortable="true">item type</th>
-                <th>edit</th>
+                <th data-sortable="true">owner</th>
+                <th>view/edit</th>
             </tr>
             </thead>
             <tbody>
@@ -17,9 +18,10 @@
                     <tr>
                         <td></td>
                         <td>${item.name}</td>
-                        <td>${item.dateCreated.format("dd/mm/yyyy")}</td>
-                        <td>${item.dateUpdated.format("dd/mm/yyyy")}</td>
+                        <td>${item.dateCreated.format('dd/MM/yyyy')}</td>
+                        <td>${item.dateUpdated.format('dd/MM/yyyy')}</td>
                         <td>${item.class.simpleName}</td>
+                        <td>${item.owner.username}</td>
                         <td>
                             <g:if test="${item.owner == currentUser}">
                                 <g:link controller="item" action="open" params="[itemId: item.id]">

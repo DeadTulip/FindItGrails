@@ -44,7 +44,6 @@ class TeamService {
         List<TeamCommand.UserItemCount> userItemCountList = []
 
         List<User> members = []
-        members.add(team.creator)
         members.addAll(team.members)
         members.each {
             userItemCountList.add(
@@ -57,12 +56,13 @@ class TeamService {
     }
 
     Team addMemberToTeam(User user, Team team) {
-        team.members.add(user)
-        team.save(flush: true)
+        user.teams.add(team)
+        user.save(flush: true)
+        team
     }
 
     void removeMemberFromTeam(User user, Team team) {
-        team.members.remove(user)
-        team.save(flush: true)
+        user.teams.remove(team)
+        user.save(flush: true)
     }
 }

@@ -14,6 +14,8 @@ class Item {
     String description
 
     static hasMany = [sharedTeams: Team]
+    static mappedBy = [sharedTeams: 'items']
+    static belongsTo = [Team]
 
     static mapping = {
         table 'item'
