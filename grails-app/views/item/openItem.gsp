@@ -16,7 +16,7 @@
         <g:if test="${cmd.itemId}">Update Item</g:if>
         <g:else>Add Item</g:else>
     </h2>
-        <form id='itemForm' class="form-horizontal" action="#">
+        <g:uploadForm id='itemForm' class="form-horizontal" controller="item" action="create">
             <g:hiddenField name="itemId" value="${cmd.itemId}" />
             <g:hiddenField name="itemType" value="${cmd.itemType}" />
 
@@ -74,15 +74,17 @@
                 </div>
             </div>
 
-        </form>
-        <div class="col-sm-offset-2 col-sm-10">
-            <g:if test="${!readonly}">
-                <button class="btn btn-primary" id="btnAdd">
-                    <g:if test="${cmd.itemId}">Update</g:if>
-                    <g:else>Add</g:else>
-                </button>
-            </g:if>
-        </div>
+            <div class="col-sm-offset-2 col-sm-10">
+                <g:if test="${!readonly}">
+                    <button class="btn btn-primary" type="submit">
+                        <g:if test="${cmd.itemId}">Update</g:if>
+                        <g:else>Add</g:else>
+                    </button>
+                </g:if>
+            </div>
+
+        </g:uploadForm>
+
     </div>
 
     <div id="successDialog" title="Basic dialog">

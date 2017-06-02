@@ -2,7 +2,10 @@ package p.hh.figrails.controllers
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 import p.hh.figrails.commands.ItemCommand
+import p.hh.figrails.domain.DiskLocation
 import p.hh.figrails.domain.Item
 import p.hh.figrails.domain.User
 import p.hh.finditgrails.services.ItemService
@@ -39,11 +42,18 @@ class ItemController {
     }
 
     def create(ItemCommand cmd) {
+        if(cmd.itemType == 'disk') {
+
+        } else {
+            cmd.pictureLocation = itemService.savePicture(request.getFile('picture'))
+        }
+
         User currentUser = springSecurityService.currentUser
         cmd.ownerId = currentUser.id
         cmd.ownerName = currentUser.username
         Item item = itemService.createItem(cmd)
         render([itemId: item.id] as JSON)
+
     }
 
     def update(ItemCommand cmd) {

@@ -1,12 +1,11 @@
 package p.hh.figrails.commands
 
-import p.hh.figrails.domain.Location
-import p.hh.figrails.domain.Team
-import p.hh.figrails.domain.User
-
+import grails.validation.Validateable
+import p.hh.figrails.domain.DiskLocation
+import p.hh.figrails.utils.ItemType
 
 class ItemCommand {
-    String itemType
+    ItemType itemType
     Long ownerId
     String ownerName
     Long itemId
@@ -21,6 +20,8 @@ class ItemCommand {
     String additionalPlaces
     String description
     List<String> sharedTeams = []
+    DiskLocation pictureLocation
+
 
     String getInvolvedPeople() {
         getInvolvedInfo(selectedPeople, additionalPeople)

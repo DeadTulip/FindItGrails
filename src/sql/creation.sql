@@ -52,6 +52,7 @@ create table location (
 
 create table disk_location (
     id integer not null,
+    original_name varchar(200) not null,
     on_disk_name varchar(200) not null,
 
     primary key (id),

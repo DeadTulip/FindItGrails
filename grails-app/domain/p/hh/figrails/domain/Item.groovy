@@ -12,6 +12,7 @@ class Item {
     String involvedPeople
     String involvedPlaces
     String description
+    Set<Team> sharedTeams = []
 
     static hasMany = [sharedTeams: Team]
     static mappedBy = [sharedTeams: 'items']

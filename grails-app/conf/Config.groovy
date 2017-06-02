@@ -154,3 +154,5 @@ grails.plugin.springsecurity.interceptUrlMap = [
         '/**':           ['ROLE_ADMIN']
 
 ]
+
+grails.config.locations = ["file:conf/finditgrails.properties"]

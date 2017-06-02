@@ -2,6 +2,7 @@ package p.hh.figrails.domain
 
 class DiskLocation extends Location {
 
+    String originalName
     String onDiskName
 
     static mapping = {
@@ -10,6 +11,7 @@ class DiskLocation extends Location {
     }
 
     static constraints = {
+        originalName nullable: false, maxSize: 200
         onDiskName nullable: false, maxSize: 200
     }
 }

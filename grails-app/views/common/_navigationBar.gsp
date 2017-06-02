@@ -8,7 +8,6 @@
                 <li><g:link controller="item" action="open" params="[itemType: 'disk']">Add Disk Item</g:link></li>
                 <li><g:link controller="item" action="open" params="[itemType: 'phsical']">Add Physical Item</g:link></li>
                 <li><g:link controller="item" action="list">List Items</g:link></li>
-                <li><g:link controller="user" action="index">User info</g:link></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><g:link controller="user" action="index">
@@ -18,8 +17,6 @@
                     <span class="glyphicon glyphicon-log-out"></span> Logout
                 </g:link></li>
             </ul>
-
-
         </sec:ifLoggedIn>
     </div>
 </nav>

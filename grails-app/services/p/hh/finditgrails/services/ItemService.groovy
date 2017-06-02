@@ -1,6 +1,8 @@
 package p.hh.finditgrails.services
 
 import grails.transaction.Transactional
+import org.apache.commons.io.FileUtils
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 import p.hh.figrails.commands.ItemCommand
 import p.hh.figrails.domain.DiskItem
 import p.hh.figrails.domain.DiskLocation
@@ -10,9 +12,12 @@ import p.hh.figrails.domain.PhysicalItem
 import p.hh.figrails.domain.Team
 import p.hh.figrails.domain.User
 
+import java.nio.file.Files
+
 @Transactional
 class ItemService {
-    def teamService
+    TeamService teamService
+    PropertyService propertyService
 
     Item createItem(ItemCommand command) {
         Item item = mapCommandToItem(command)
@@ -23,6 +28,19 @@ class ItemService {
 
         updateTeams(command.sharedTeams, item)
         item
+    }
+
+    DiskLocation savePicture(CommonsMultipartFile multipartFile) {
+        if(multipartFile) {
+            String location = propertyService.fileStoreLocation()
+            String randomName = UUID.randomUUID().toString()
+            File storedFile = new File("${location}/${randomName}")
+            multipartFile.transferTo(storedFile)
+
+            new DiskLocation(originalName: multipartFile.originalFilename, onDiskName: randomName).save(flush: true)
+        } else {
+            null
+        }
     }
 
     Item updateItem(ItemCommand command) {
@@ -110,6 +128,7 @@ class ItemService {
         }
         bindItemData(command, item)
 
+        item.picture = command.pictureLocation
         item
     }
 
