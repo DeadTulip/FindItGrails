@@ -1,3 +1,4 @@
+<%@ page import="p.hh.figrails.utils.ItemType;" %>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -5,8 +6,8 @@
         </div>
         <sec:ifLoggedIn>
             <ul class="nav navbar-nav">
-                <li><g:link controller="item" action="open" params="[itemType: 'disk']">Add Disk Item</g:link></li>
-                <li><g:link controller="item" action="open" params="[itemType: 'phsical']">Add Physical Item</g:link></li>
+                <li><g:link controller="item" action="open" params="[itemType: ItemType.DISK.name()]">Add Disk Item</g:link></li>
+                <li><g:link controller="item" action="open" params="[itemType: ItemType.PHYSICAL.name()]">Add Physical Item</g:link></li>
                 <li><g:link controller="item" action="list">List Items</g:link></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

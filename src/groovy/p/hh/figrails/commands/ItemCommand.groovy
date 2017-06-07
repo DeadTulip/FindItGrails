@@ -2,6 +2,7 @@ package p.hh.figrails.commands
 
 import grails.validation.Validateable
 import p.hh.figrails.domain.DiskLocation
+import p.hh.figrails.domain.Location
 import p.hh.figrails.utils.ItemType
 
 class ItemCommand {
@@ -20,6 +21,7 @@ class ItemCommand {
     String additionalPlaces
     String description
     List<String> sharedTeams = []
+    Location itemLocation = Location.findById(1L)
     DiskLocation pictureLocation
 
 

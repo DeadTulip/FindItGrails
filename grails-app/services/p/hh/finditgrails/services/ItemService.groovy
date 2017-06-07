@@ -1,7 +1,6 @@
 package p.hh.finditgrails.services
 
 import grails.transaction.Transactional
-import org.apache.commons.io.FileUtils
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import p.hh.figrails.commands.ItemCommand
 import p.hh.figrails.domain.DiskItem
@@ -11,22 +10,32 @@ import p.hh.figrails.domain.Location
 import p.hh.figrails.domain.PhysicalItem
 import p.hh.figrails.domain.Team
 import p.hh.figrails.domain.User
-
-import java.nio.file.Files
+import p.hh.figrails.utils.ItemType
 
 @Transactional
 class ItemService {
-    TeamService teamService
-    PropertyService propertyService
+    def teamService
+    def userService
+    def propertyService
 
     Item createItem(ItemCommand command) {
         Item item = mapCommandToItem(command)
         Date now = new Date()
         item.dateCreated = now
         item.dateUpdated = now
-        item.save(failOnError: true, flush: true)
+        item.save(failOnError: true)
 
-        updateTeams(command.sharedTeams, item)
+        shareItemInTeams(item, command.sharedTeams)
+        item
+    }
+
+    Item updateItem(ItemCommand command) {
+        Item item = mapCommandToItem(command)
+        Date now = new Date()
+        item.dateUpdated = now
+        item.save(failOnError: true)
+
+        shareItemInTeams(item, command.sharedTeams)
         item
     }
 
@@ -43,17 +52,7 @@ class ItemService {
         }
     }
 
-    Item updateItem(ItemCommand command) {
-        Item item = mapCommandToItem(command)
-        Date now = new Date()
-        item.dateUpdated = now
-        item.save(failOnError: true, flush: true)
-
-        updateTeams(command.sharedTeams, item)
-        item
-    }
-
-    private void updateTeams(List<String> teams, Item item) {
+    void shareItemInTeams(Item item, List<String> teams) {
         Set<Team> previousSharedTeams = item.sharedTeams
         Set<Team> updatedSharedTeams = []
         teams.each {
@@ -64,11 +63,11 @@ class ItemService {
         Set<Team> removedTeams = previousSharedTeams - updatedSharedTeams
 
         addedTeams.each {
-            it.items.add(item)
+            it.addToItems(item)
             it.save(failOnError: true, flush: true)
         }
         removedTeams.each {
-            it.items.remove(item)
+            it.removeFromItems(item)
             it.save(failOnError: true, flush: true)
         }
     }
@@ -77,8 +76,10 @@ class ItemService {
         ItemCommand cmd = new ItemCommand()
         cmd.itemId = item.id
         cmd.itemName = item.name
-        cmd.selectedPeople = item.involvedPeople.split(",")
-        cmd.selectedPlaces = item.involvedPlaces.split(",")
+        String involvedPeople = item.involvedPeople
+        cmd.selectedPeople = involvedPeople ? involvedPeople.split(",") : []
+        String involvedPlaces = item.involvedPlaces
+        cmd.selectedPlaces = involvedPlaces ? involvedPlaces.split(",") : []
         cmd.description = item.description
         cmd.eventStart = item.eventStartTime
         cmd.eventEnd = item.eventEndTime
@@ -86,19 +87,21 @@ class ItemService {
 
         if (item instanceof DiskItem) {
             Item diskItem = (DiskItem) item
-            cmd.itemType = 'disk'
+            cmd.itemType = ItemType.DISK
             cmd.fileSize = diskItem.fileSize
             cmd.fileType = diskItem.fileType
 
         } else {
-            cmd.itemType = 'physical'
+            Item physicalItem = (PhysicalItem) item
+            cmd.itemType = ItemType.PHYSICAL
+            cmd.pictureLocation = physicalItem.picture
         }
 
         cmd
     }
 
     Item mapCommandToItem(ItemCommand command) {
-        if (command.itemType == 'disk') {
+        if (command.itemType == ItemType.DISK) {
             mapCommandToDiskItem(command)
         } else {
             mapCommandToPhysicalItem(command)
@@ -128,13 +131,15 @@ class ItemService {
         }
         bindItemData(command, item)
 
-        item.picture = command.pictureLocation
+        if(command.pictureLocation) {
+            item.picture = command.pictureLocation
+        }
         item
     }
 
     private void bindItemData(ItemCommand command, Item item) {
-        item.owner = User.findById(command.ownerId)
-        item.location = Location.findById(1L)
+        item.owner = userService.findUser(command.ownerId)
+        item.location = command.itemLocation
         item.name = command.itemName
         item.involvedPeople = command.involvedPeople
         item.involvedPlaces = command.involvedPlaces
@@ -147,13 +152,13 @@ class ItemService {
 
     }
 
-    Set<Item> findAllOwnedItemsByUser(User user) {
+    Set<Item> findAllCreatedItemsByUser(User user) {
         Item.findAllByOwner(user)
     }
 
     Set<Item> findAllAccessibleItemsByUser(User user) {
-        Set<Item> items = findAllOwnedItemsByUser(user)
-        Set<Team> accessibleTeams = teamService.teamsJoinedByUser(user)
+        Set<Item> items = findAllCreatedItemsByUser(user)
+        Set<Team> accessibleTeams = teamService.teamsAccessibleByUser(user)
 
         accessibleTeams.each {
             items.addAll(it.items)

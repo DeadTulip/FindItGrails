@@ -28,16 +28,3 @@ $(document).ready(function() {
         ]
     });
 });
-
-// $('button#btnAdd').click(function() {
-//     $.ajax({
-//         url: gUrl['itemAction'],
-//         data: $('form#itemForm').serialize(),
-//         success: function () {
-//             $('div#successDialog').dialog('open');
-//         },
-//         error: function (XMLHttpRequest, textStatus, errorThrown) {
-//             //TODO
-//         }
-//     });
-// });

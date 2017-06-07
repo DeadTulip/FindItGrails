@@ -1,22 +1,16 @@
+<%@ page import="p.hh.figrails.utils.ItemType;" %>
 <g:applyLayout name="main">
-
-    <r:script>
-        var gUrl = [];
-
-        if(${cmd.itemId == null} === true) {
-            gUrl['itemAction'] = "<g:createLink controller="item" action="create" />"
-        } else {
-            gUrl['itemAction'] = "<g:createLink controller="item" action="update" params="[itemId: cmd.itemId]"/>"
-        }
-    </r:script>
     <r:require module="openItem" />
 
     <div class="container">
     <h2>
-        <g:if test="${cmd.itemId}">Update Item</g:if>
-        <g:else>Add Item</g:else>
+        <g:if test="${cmd.itemId}">Update ${cmd.itemType} Item</g:if>
+        <g:else>Add ${cmd.itemType} Item</g:else>
     </h2>
-        <g:uploadForm id='itemForm' class="form-horizontal" controller="item" action="create">
+        <g:if test="${message}">
+            <div class="alert alert-success">${message}</div>
+        </g:if>
+        <g:uploadForm id='itemForm' class="form-horizontal" controller="item" action="${cmd.itemId ? 'update' : 'create'}">
             <g:hiddenField name="itemId" value="${cmd.itemId}" />
             <g:hiddenField name="itemType" value="${cmd.itemType}" />
 
@@ -27,7 +21,7 @@
                 </div>
             </div>
 
-            <g:if test="${cmd.itemType == 'disk'}">
+            <g:if test="${cmd.itemType == ItemType.DISK}">
                 <g:render template="openDiskItem" model="[cmd: cmd, readonly: readonly]"/>
             </g:if>
             <g:else>
@@ -37,15 +31,15 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventStart">Event start:</label>
-                <div class="col-md-3" id="eventStartDateContainer">
-                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart?.format("MM/dd/yyyy")}" disabled="${readonly == true}"/>
+                <div class="col-sm-3" id="eventStartDateContainer">
+                    <g:textField class="form-control" id="inputEventStart" name="eventStart" value="${cmd.eventStart?.format("dd/MM/yyyy")}" disabled="${readonly == true}"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="inputEventEnd">Event end:</label>
-                <div class="col-md-3" id="eventEndDateContainer">
-                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd?.format("MM/dd/yyyy")}" disabled="${readonly == true}"/>
+                <div class="col-sm-3" id="eventEndDateContainer">
+                    <g:textField class="form-control" id="inputEventEnd" name="eventEnd" value="${cmd.eventEnd?.format("dd/MM/yyyy")}" disabled="${readonly == true}"/>
                 </div>
             </div>
 
@@ -84,11 +78,6 @@
             </div>
 
         </g:uploadForm>
-
-    </div>
-
-    <div id="successDialog" title="Basic dialog">
-        <p>Dialog box</p>
     </div>
 
 </g:applyLayout>

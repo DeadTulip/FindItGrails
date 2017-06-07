@@ -21,7 +21,11 @@
         <g:if test="${readonly != true}" >
             <input type="file" name="picture" />
         </g:if>
-        <g:img class="img-rounded" src="c:/_Work/fileStore/af1b6e08-3cda-40a3-bcfe-25358a759b5d" />
+        <g:if test="${cmd.itemId}">
+            <div id="divImg">
+                <g:img class="img-rounded" src="fileStore/${cmd.pictureLocation.onDiskName}" style="width:auto; max-height: 200px"/>
+            </div>
+        </g:if>
     </div>
 
 </div>

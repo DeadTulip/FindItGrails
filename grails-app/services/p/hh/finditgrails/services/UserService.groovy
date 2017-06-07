@@ -28,17 +28,19 @@ class UserService {
         List<String> allInvolvedInfo = allOwnedItems(user)*."${fieldName}"
         List<String> involvedInfoList = []
         allInvolvedInfo.each {
-            involvedInfoList.addAll(it.split(","))
+            if(it.trim()) {
+                involvedInfoList.addAll(it.split(","))
+            }
         }
         involvedInfoList = involvedInfoList.unique().sort()
         involvedInfoList
     }
 
-    User findUserByName(String name) {
+    User findUser(String name) {
         User.findByUsername(name)
     }
 
-    User findUserById(Long id) {
+    User findUser(Long id) {
         User.findById(id)
     }
 }

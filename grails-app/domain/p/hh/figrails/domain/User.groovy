@@ -7,12 +7,11 @@ class User {
 
     String username
     String password
-    Set<Team> createdTeams = []
     Set<Team> teams = []
 
-    static hasMany = [teams: Team, createdTeams: Team]
+    static hasMany = [teams: Team]
 
-    static mappedBy = [teams: 'members', createdTeams: 'creator']
+    static mappedBy = [teams: 'members']
 
     static mapping = {
         table 'user'
